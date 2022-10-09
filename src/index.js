@@ -4,8 +4,9 @@ function loadPage() {
     const main = createMainContent();
     const container = document.createElement("div");
 
-    const content = document.querySelector(".content");
+    container.classList.add("container");
     container.append(sidebar, main);
+    const content = document.querySelector(".content");
     content.append(header, container);
 }
 
@@ -20,14 +21,27 @@ function createHeader() {
 
 function createSidebar() {
     const sidebar = document.createElement("section");
+    const heading = document.createElement("h3");
+
+    heading.textContent = "Home";
     sidebar.classList.add("sidebar");
 
     const sidebarItems = document.createElement("ul");
+    const allTasks = createSidebarItem("All Tasks");
+    const tasksForToday = createSidebarItem("Today");
+    const tasksForWeek = createSidebarItem("This Week");
+    const importantTasks = createSidebarItem("Important");
+
+    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks);
+    sidebar.append(heading, sidebarItems);
     return sidebar;
 }
 
-function createSidebarItem() {
+function createSidebarItem(name) {
+    const item = document.createElement("li");
+    item.textContent = name;
 
+    return item;
 }
 
 function createMainContent() {
