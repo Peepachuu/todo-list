@@ -21,9 +21,6 @@ function createHeader() {
 
 function createSidebar() {
     const sidebar = document.createElement("section");
-    const heading = document.createElement("h3");
-
-    heading.textContent = "Home";
     sidebar.classList.add("sidebar");
 
     const sidebarItems = document.createElement("ul");
@@ -31,9 +28,10 @@ function createSidebar() {
     const tasksForToday = createSidebarItem("Today");
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
+    const projects = createSidebarItem("Projects");
 
-    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks);
-    sidebar.append(heading, sidebarItems);
+    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects);
+    sidebar.append(sidebarItems);
     return sidebar;
 }
 
