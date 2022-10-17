@@ -1,3 +1,5 @@
+import {createNewItemForm} from "./ui.js";
+
 function loadPage() {
     const header = createHeader();
     const sidebar = createSidebar();
@@ -29,10 +31,21 @@ function createSidebar() {
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
     const projects = createSidebarItem("Projects");
+    const addButton = createAddButton();
 
-    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects);
+    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects, addButton);
     sidebar.append(sidebarItems);
     return sidebar;
+}
+
+function createAddButton() {
+    const addButton = document.createElement("button");
+    addButton.textContent = "+";
+    addButton.classList.add("add");
+    addButton.addEventListener("click", () => {
+        createNewItemForm();
+    });
+    return addButton;
 }
 
 function createSidebarItem(name) {
