@@ -1,9 +1,20 @@
-function toggletemCreationForm() {
-    const itemForm = document.querySelector(".item form");
+export function loadUI() {
+    const content = document.querySelector(".content");
+    const form = createNewItemForm();
+
+    content.appendChild(form);
+}
+
+
+export function toggleItemCreationForm() {
+    const itemForm = document.querySelector(".form-container");
     itemForm.classList.toggle("show");
 }
 
-export function createNewItemForm() {
+function createNewItemForm() {
+    const container = document.createElement("div");
+    container.classList.add("form-container");
+
     const form = document.createElement("form");
     const heading = document.createElement("h3");
     heading.textContent = "Create a new...";
@@ -16,14 +27,15 @@ export function createNewItemForm() {
 
     options.append(todoOption, projectOption);
     form.append(heading, options, content);
+    container.appendChild(form);
     form.classList.add("item");
 
-    return form;
+    return container;
 }
 
 function createOption(name) {
-    option = document.createElement("li");
-    button = document.createElement("button");
+    const option = document.createElement("li");
+    const button = document.createElement("button");
     button.textContent = name;
 
     option.appendChild(button);

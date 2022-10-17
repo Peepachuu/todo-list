@@ -1,4 +1,4 @@
-import {createNewItemForm} from "./ui.js";
+import {loadUI, toggleItemCreationForm} from "./ui.js";
 
 function loadPage() {
     const header = createHeader();
@@ -10,6 +10,7 @@ function loadPage() {
     container.append(sidebar, main);
     const content = document.querySelector(".content");
     content.append(header, container);
+    loadUI();
 }
 
 function createHeader() {
@@ -43,7 +44,7 @@ function createAddButton() {
     addButton.textContent = "+";
     addButton.classList.add("add");
     addButton.addEventListener("click", () => {
-        createNewItemForm();
+        toggleItemCreationForm();
     });
     return addButton;
 }
