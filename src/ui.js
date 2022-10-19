@@ -1,3 +1,7 @@
+import project from "./project.js";
+import todo from "./todo.js";
+
+
 export function loadUI() {
     const content = document.querySelector(".content");
     const form = createNewItemForm();
@@ -42,10 +46,29 @@ function createOption(name) {
     return option;
 }
 
-function createToDo() {
-    
+function createPopUp(isProject) {
+    const popUp = document.createElement("div");
+    popUp.classList.add("pop-up");
+    const nameInput = document.createElement("input");
+    const createButton = document.createElement("button");
+    const cancelButton = document.createElement("button");
+
+    createButton.textContent = "Create";
+    if (isProject) {
+        createButton.addEventListener('click', randomfunction());
+    } else {
+        createButton.addEventListener('click', randomfunction());
+    }
+    cancelButton.textContent = "Cancel";
+
+    popUp.append(nameInput, createButton, cancelButton);
+    return popUp;
 }
 
-function createProject() {
+function displayProject() {
+
+}
+
+function displayToDos() {
 
 }
