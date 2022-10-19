@@ -79,10 +79,15 @@ header h1 {
 }
 
 .pop-up {
+    visibility: hidden;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
 .pop-up input {
     grid-column: span 2;
+}
+
+.pop-up.show {
+    visibility: visible;
 }
