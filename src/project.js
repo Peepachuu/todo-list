@@ -1,4 +1,4 @@
-const project = function(title) {
+export const project = function(title) {
     let todos = [];
 
     return {

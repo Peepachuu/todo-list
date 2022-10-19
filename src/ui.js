@@ -1,40 +1,20 @@
 import project from "./project.js";
-import todo from "./todo.js";
+import { todo } from "./todo.js";
 
 
 export function loadUI() {
-    const content = document.querySelector(".content");
-    const form = createNewItemForm();
+    const main = document.querySelector(".main");
+    const newTodo = todo("This is a todo");
+    displayToDo(newTodo);
+    const form = createPopUp(false);
 
-    content.appendChild(form);
+    main.appendChild(form);
 }
 
 
-export function toggleItemCreationForm() {
-    const itemForm = document.querySelector(".form-container");
+export function togglePopUp(isProjectPopUp) {
+    const itemForm = document.querySelector(".pop-up");
     itemForm.classList.toggle("show");
-}
-
-function createNewItemForm() {
-    const container = document.createElement("div");
-    container.classList.add("form-container");
-
-    const form = document.createElement("form");
-    const heading = document.createElement("h3");
-    heading.textContent = "Create a new...";
-
-    const options = document.createElement("ul");
-    const todoOption = createOption("To Do");
-    const projectOption = createOption("Project");
-    
-    const content = document.createElement("section");
-
-    options.append(todoOption, projectOption);
-    form.append(heading, options, content);
-    container.appendChild(form);
-    form.classList.add("item");
-
-    return container;
 }
 
 function createOption(name) {
@@ -46,7 +26,7 @@ function createOption(name) {
     return option;
 }
 
-function createPopUp(isProject) {
+export function createPopUp(isProject) {
     const popUp = document.createElement("div");
     popUp.classList.add("pop-up");
     const nameInput = document.createElement("input");
@@ -57,7 +37,10 @@ function createPopUp(isProject) {
     if (isProject) {
         createButton.addEventListener('click', randomfunction());
     } else {
-        createButton.addEventListener('click', randomfunction());
+        createButton.addEventListener('click', () => {
+            const newToDo = todo(nameInput.value);
+            displayToDo(newToDo);
+        });
     }
     cancelButton.textContent = "Cancel";
 
@@ -69,6 +52,24 @@ function displayProject() {
 
 }
 
-function displayToDos() {
+function displayToDo(todoToDisplay) {
+    const todo = document.createElement("div");
 
+    const status = document.createElement("input");
+    const title = document.createElement("p");
+    title.textContent = todoToDisplay.title;
+    const detailsButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
+
+    detailsButton.textContent = "Details";
+    deleteButton.textContent = "Del";
+
+    todo.append(status, title, detailsButton, deleteButton);
+    const main = document.querySelector(".main");
+    main.appendChild(todo);
 }
+
+// Functions of the add todo button
+// first it brings up the form where the user puts in all the info
+// Next when the create button is pressed it gets stored in the application logic
+// Then it gets displayed on the screen on it's respective project.

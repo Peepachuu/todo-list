@@ -1,4 +1,4 @@
-import {loadUI, toggleItemCreationForm} from "./ui.js";
+import {loadUI, togglePopUp} from "./ui.js";
 
 function loadPage() {
     const header = createHeader();
@@ -32,19 +32,19 @@ function createSidebar() {
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
     const projects = createSidebarItem("Projects");
-    const addButton = createAddButton();
+    const addButton = createAddButton(false);
 
     sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects, addButton);
     sidebar.append(sidebarItems);
     return sidebar;
 }
 
-function createAddButton() {
+function createAddButton(isProjectButton) {
     const addButton = document.createElement("button");
     addButton.textContent = "+";
     addButton.classList.add("add");
     addButton.addEventListener("click", () => {
-        toggleItemCreationForm();
+        togglePopUp(isProjectButton);
     });
     return addButton;
 }
