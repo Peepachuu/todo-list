@@ -38,6 +38,7 @@ export function createPopUp(isProject) {
         createButton.addEventListener('click', randomfunction());
     } else {
         createButton.addEventListener('click', () => {
+            popUp.classList.toggle("show");
             const newToDo = todo(nameInput.value);
             displayToDo(newToDo);
         });
@@ -56,6 +57,7 @@ function displayToDo(todoToDisplay) {
     const todo = document.createElement("div");
 
     const status = document.createElement("input");
+    status.setAttribute("type", "checkbox");
     const title = document.createElement("p");
     title.textContent = todoToDisplay.title;
     const detailsButton = document.createElement("button");
@@ -65,11 +67,11 @@ function displayToDo(todoToDisplay) {
     deleteButton.textContent = "Del";
 
     todo.append(status, title, detailsButton, deleteButton);
-    const main = document.querySelector(".main");
-    main.appendChild(todo);
+    const list = document.querySelector(".main .list");
+    list.appendChild(todo);
 }
 
-// Functions of the add todo button
-// first it brings up the form where the user puts in all the info
-// Next when the create button is pressed it gets stored in the application logic
-// Then it gets displayed on the screen on it's respective project.
+// Make it so the todo form appears at the bottom of the main section (after all the todos)
+// Change the appearance of the form. It's pretty ugly rn. 
+// Make the project creation form.
+// 

@@ -59,11 +59,14 @@ function createSidebarItem(name) {
 function createMainContent() {
     const main = document.createElement("section");
 
+    const container = document.createElement("section");
+    container.classList.add("list");
     const heading = document.createElement("h2");
     heading.textContent = "Today";
 
     // Also gotta append the list of todos for the day.
-    main.append(heading);
+    container.appendChild(heading);
+    main.appendChild(container);
     main.classList.add("main");
     return main;
 }
