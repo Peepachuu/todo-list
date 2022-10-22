@@ -29,7 +29,21 @@ function createOption(name) {
 export function createPopUp(isProject) {
     const popUp = document.createElement("div");
     popUp.classList.add("pop-up");
-    const nameInput = document.createElement("input");
+
+    const titleInput = document.createElement("input");
+    const titleLabel = document.createElement("label");
+    titleLabel.textContent = "Title";
+    titleInput.id = "title";
+    titleInput.setAttribute("name", "title");
+    titleLabel.setAttribute("for", titleInput.id);
+
+    const descriptionInput = document.createElement("input");
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.textContent = "Description";
+    descriptionInput.id = "description";
+    descriptionLabel.setAttribute("for", descriptionInput.id);
+    descriptionInput.setAttribute("name", "description");
+
     const createButton = document.createElement("button");
     const cancelButton = document.createElement("button");
 
@@ -39,13 +53,12 @@ export function createPopUp(isProject) {
     } else {
         createButton.addEventListener('click', () => {
             popUp.classList.toggle("show");
-            const newToDo = todo(nameInput.value);
+            const newToDo = todo(titleInput.value);
             displayToDo(newToDo);
         });
     }
     cancelButton.textContent = "Cancel";
-
-    popUp.append(nameInput, createButton, cancelButton);
+    popUp.append(titleLabel, titleInput, descriptionLabel, descriptionInput, createButton, cancelButton);
     return popUp;
 }
 
@@ -66,12 +79,12 @@ function displayToDo(todoToDisplay) {
     detailsButton.textContent = "Details";
     deleteButton.textContent = "Del";
 
+    todo.classList.add("todo");
     todo.append(status, title, detailsButton, deleteButton);
     const list = document.querySelector(".main .list");
     list.appendChild(todo);
 }
 
-// Make it so the todo form appears at the bottom of the main section (after all the todos)
 // Change the appearance of the form. It's pretty ugly rn. 
 // Make the project creation form.
 // 
