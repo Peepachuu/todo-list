@@ -58,6 +58,7 @@ header h1 {
 .main {
     flex: 1;
     background-color: var(--main-background-color);
+    padding: 16px 32px;
 }
 .main h2 {
     text-align: center;
