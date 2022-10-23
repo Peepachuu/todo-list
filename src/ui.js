@@ -6,7 +6,7 @@ export function loadUI() {
     const main = document.querySelector(".main");
     const newTodo = todo("This is a todo");
     displayToDo(newTodo);
-    const form = createPopUp(false);
+    const form = createTodoPopUp(false);
 
     main.appendChild(form);
 }
@@ -17,16 +17,7 @@ export function togglePopUp(isProjectPopUp) {
     itemForm.classList.toggle("show");
 }
 
-function createOption(name) {
-    const option = document.createElement("li");
-    const button = document.createElement("button");
-    button.textContent = name;
-
-    option.appendChild(button);
-    return option;
-}
-
-export function createPopUp(isProject) {
+export function createTodoPopUp(isProject) {
     const popUp = document.createElement("div");
     popUp.classList.add("pop-up");
 
@@ -48,18 +39,27 @@ export function createPopUp(isProject) {
     const cancelButton = document.createElement("button");
 
     createButton.textContent = "Create";
-    if (isProject) {
-        createButton.addEventListener('click', randomfunction());
-    } else {
-        createButton.addEventListener('click', () => {
-            popUp.classList.toggle("show");
-            const newToDo = todo(titleInput.value);
-            displayToDo(newToDo);
-        });
-    }
+    
+    createButton.addEventListener('click', () => {
+        popUp.classList.toggle("show");
+        const newToDo = todo(titleInput.value);
+        displayToDo(newToDo);
+    });
+
     cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener('click', (e) => {
+        popUp.classList.toggle("show");
+        resetPopUp(e);
+    })
     popUp.append(titleLabel, titleInput, descriptionLabel, descriptionInput, createButton, cancelButton);
     return popUp;
+}
+
+function resetPopUp(e) {
+    const inputFields = e.target.parentNode.querySelectorAll("input");
+    inputFields.forEach(element => {
+        element.value = "";
+    });
 }
 
 function displayProject() {
