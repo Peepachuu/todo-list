@@ -1,4 +1,4 @@
-import project from "./project.js";
+import { project } from "./project.js";
 import { todo } from "./todo.js";
 
 
@@ -6,20 +6,43 @@ export function loadUI() {
     const main = document.querySelector(".main");
     const newTodo = todo("This is a todo");
     displayToDo(newTodo);
-    const form = createTodoPopUp(false);
+    const form = createTodoPopUp();
 
     main.appendChild(form);
 }
 
 
-export function togglePopUp(isProjectPopUp) {
-    const itemForm = document.querySelector(".pop-up");
-    itemForm.classList.toggle("show");
+export function togglePopUp(isProjectButton) {
+    const selector = isProjectButton ? ".pop-up project" : ".pop-up todo";
+    const form = document.querySelector(selector);
+    form.classList.toggle("show");
 }
 
-export function createTodoPopUp(isProject) {
+function createProjectPopUp() {
     const popUp = document.createElement("div");
-    popUp.classList.add("pop-up");
+    popUp.classList.add("pop-up project");
+
+    const titleInput = document.createElement("input");
+    titleInput.placeholder = "Enter title here";
+
+    const createButton = document.createElement("button");
+    createButton.addEventListener("click", () => {
+        popUp.classList.toggle("show");
+        const newProject = project(titleInput.value);
+        displayProject(newProject);
+    });
+
+    const cancelButton = document.createElement("button");
+    cancelButton.addEventListener("click", (e) => {
+        popUp.classList.toggle("show");
+        resetPopUp(e);
+    });
+    popUp.append(titleInput, createButton, cancelButton);
+}
+
+function createTodoPopUp() {
+    const popUp = document.createElement("div");
+    popUp.classList.add("pop-up todo");
 
     const titleInput = document.createElement("input");
     const titleLabel = document.createElement("label");
@@ -87,4 +110,7 @@ function displayToDo(todoToDisplay) {
 
 // Change the appearance of the form. It's pretty ugly rn. 
 // Make the project creation form.
-// 
+// When the project create button is pressed a separate form appears
+// Projects can only have titles and contain a list of todos.
+// when create is pressed it's added to the list in the sidebar
+// and when the project item is clicked each of the todo in it is loaded onto the screen

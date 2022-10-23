@@ -32,16 +32,17 @@ function createSidebar() {
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
     const projects = createSidebarItem("Projects");
-    const addButton = createAddButton(false);
+    const todoAddButton = createAddButton(false);
+    const projectAddButton = createAddButton(true);
 
-    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects, addButton);
+    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects, todoAddButton, projectAddButton);
     sidebar.append(sidebarItems);
     return sidebar;
 }
 
 function createAddButton(isProjectButton) {
     const addButton = document.createElement("button");
-    addButton.textContent = "+";
+    addButton.textContent = isProjectButton ? "Create Project" : "Create ToDo";
     addButton.classList.add("add");
     addButton.addEventListener("click", () => {
         togglePopUp(isProjectButton);
