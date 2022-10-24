@@ -1,3 +1,4 @@
+import { todo } from "./todo.js";
 import {loadUI, togglePopUp} from "./ui.js";
 
 function loadPage() {
@@ -26,18 +27,35 @@ function createSidebar() {
     const sidebar = document.createElement("section");
     sidebar.classList.add("sidebar");
 
-    const sidebarItems = document.createElement("ul");
+    const home = createHomeSection();
+    const projects = createProjectSection();
+
+    sidebar.append(home, projects);
+    return sidebar;
+}
+
+function createHomeSection() {
+    const home = document.createElement("section");
+    const list = document.createElement("ul");
+
     const allTasks = createSidebarItem("All Tasks");
     const tasksForToday = createSidebarItem("Today");
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
-    const projects = createSidebarItem("Projects");
+
+    list.append(allTasks, tasksForToday, tasksForWeek, importantTasks);
+    home.appendChild(list);
+    return home;
+}
+
+function createProjectSection() {
+    const projects = document.createElement("section");
+
+    const list = document.createElement("ul");
     const todoAddButton = createAddButton(false);
     const projectAddButton = createAddButton(true);
-
-    sidebarItems.append(allTasks, tasksForToday, tasksForWeek, importantTasks, projects, todoAddButton, projectAddButton);
-    sidebar.append(sidebarItems);
-    return sidebar;
+    projects.append(list, todoAddButton, projectAddButton);
+    return projects;
 }
 
 function createAddButton(isProjectButton) {

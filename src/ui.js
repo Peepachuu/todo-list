@@ -5,7 +5,7 @@ import { todo } from "./todo.js";
 export function loadUI() {
     const main = document.querySelector(".main");
     const newTodo = todo("This is a todo");
-    displayToDo(newTodo);
+    addTodoToDisplay(newTodo);
     const form = createTodoPopUp();
 
     main.appendChild(form);
@@ -20,7 +20,7 @@ export function togglePopUp(isProjectButton) {
 
 function createProjectPopUp() {
     const popUp = document.createElement("div");
-    popUp.classList.add("pop-up project");
+    popUp.classList.add("pop-up", "project");
 
     const titleInput = document.createElement("input");
     titleInput.placeholder = "Enter title here";
@@ -29,7 +29,7 @@ function createProjectPopUp() {
     createButton.addEventListener("click", () => {
         popUp.classList.toggle("show");
         const newProject = project(titleInput.value);
-        displayProject(newProject);
+        addProjectToDisplay(newProject);
     });
 
     const cancelButton = document.createElement("button");
@@ -42,7 +42,7 @@ function createProjectPopUp() {
 
 function createTodoPopUp() {
     const popUp = document.createElement("div");
-    popUp.classList.add("pop-up todo");
+    popUp.classList.add("pop-up", "todo");
 
     const titleInput = document.createElement("input");
     const titleLabel = document.createElement("label");
@@ -66,7 +66,7 @@ function createTodoPopUp() {
     createButton.addEventListener('click', () => {
         popUp.classList.toggle("show");
         const newToDo = todo(titleInput.value);
-        displayToDo(newToDo);
+        addTodoToDisplay(newToDo);
     });
 
     cancelButton.textContent = "Cancel";
@@ -85,11 +85,11 @@ function resetPopUp(e) {
     });
 }
 
-function displayProject() {
+function addProjectToDisplay() {
 
 }
 
-function displayToDo(todoToDisplay) {
+function addTodoToDisplay(todoToDisplay) {
     const todo = document.createElement("div");
 
     const status = document.createElement("input");
