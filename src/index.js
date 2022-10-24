@@ -36,25 +36,32 @@ function createSidebar() {
 
 function createHomeSection() {
     const home = document.createElement("section");
-    const list = document.createElement("ul");
 
+    const heading = document.createElement("h2");
+    heading.textContent = "Home";
+    const list = document.createElement("ul");
+    list.classList.add("list");
     const allTasks = createSidebarItem("All Tasks");
     const tasksForToday = createSidebarItem("Today");
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
 
     list.append(allTasks, tasksForToday, tasksForWeek, importantTasks);
-    home.appendChild(list);
+    home.append(heading, list);
     return home;
 }
 
 function createProjectSection() {
     const projects = document.createElement("section");
+    projects.classList.add("projects");
 
+    const heading = document.createElement("h2");
+    heading.textContent = "Projects";
     const list = document.createElement("ul");
+    list.classList.add("list");
     const todoAddButton = createAddButton(false);
     const projectAddButton = createAddButton(true);
-    projects.append(list, todoAddButton, projectAddButton);
+    projects.append(heading, list, todoAddButton, projectAddButton);
     return projects;
 }
 

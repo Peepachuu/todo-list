@@ -6,14 +6,15 @@ export function loadUI() {
     const main = document.querySelector(".main");
     const newTodo = todo("This is a todo");
     addTodoToDisplay(newTodo);
-    const form = createTodoPopUp();
+    const todoForm = createTodoPopUp();
+    const projectForm = createProjectPopUp();
 
-    main.appendChild(form);
+    main.append(todoForm, projectForm);
 }
 
 
 export function togglePopUp(isProjectButton) {
-    const selector = isProjectButton ? ".pop-up project" : ".pop-up todo";
+    const selector = isProjectButton ? ".pop-up.project" : ".pop-up.todo";
     const form = document.querySelector(selector);
     form.classList.toggle("show");
 }
@@ -26,6 +27,7 @@ function createProjectPopUp() {
     titleInput.placeholder = "Enter title here";
 
     const createButton = document.createElement("button");
+    createButton.textContent = "Create";
     createButton.addEventListener("click", () => {
         popUp.classList.toggle("show");
         const newProject = project(titleInput.value);
@@ -33,11 +35,13 @@ function createProjectPopUp() {
     });
 
     const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", (e) => {
         popUp.classList.toggle("show");
         resetPopUp(e);
     });
     popUp.append(titleInput, createButton, cancelButton);
+    return popUp;
 }
 
 function createTodoPopUp() {
@@ -85,8 +89,16 @@ function resetPopUp(e) {
     });
 }
 
-function addProjectToDisplay() {
-
+function addProjectToDisplay(projectToDisplay) {
+    const project = document.createElement("li");
+    const title = document.createElement("h3");
+    title.textContent = projectToDisplay.title;
+    const editButton = document.createElement("button");
+    editButton.textContent = "edit";
+    project.append(title, editButton);
+    
+    const list = document.querySelector(".sidebar .projects .list");
+    list.appendChild(project);
 }
 
 function addTodoToDisplay(todoToDisplay) {
