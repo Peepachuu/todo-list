@@ -1,4 +1,3 @@
-import { todo } from "./todo.js";
 import {loadUI, togglePopUp} from "./ui.js";
 
 function loadPage() {

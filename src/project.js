@@ -6,4 +6,3 @@ export const project = function(title) {
         todos
     };
 };
-
