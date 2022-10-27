@@ -10,6 +10,7 @@ export function makeProjectCreationForm() {
     titleInput.placeholder = "Enter title here";
 
     const createButton = document.createElement("button");
+    createButton.classList.add("create");
     createButton.textContent = "Create";
     createButton.addEventListener("click", () => {
         if (projectAlreadyExists(titleInput.value)) {
@@ -25,12 +26,17 @@ export function makeProjectCreationForm() {
     });
 
     const cancelButton = document.createElement("button");
+    cancelButton.classList.add("cancel");
     cancelButton.textContent = "Cancel";
     cancelButton.addEventListener("click", () => {
         popUp.classList.toggle("show");
         resetPopUp(popUp);
     });
-    popUp.append(titleInput, createButton, cancelButton);
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("buttons");
+    buttonContainer.append(createButton, cancelButton);
+
+    popUp.append(titleInput, buttonContainer);
     return popUp;
 }
 
