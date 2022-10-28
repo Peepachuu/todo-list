@@ -1,11 +1,12 @@
-import {makeProjectCreationForm} from "./projectCreation.js";
+import {makeProjectCreationForm, setUpDefaultProjects} from "./projectCreation.js";
 import {makeTodoCreationForm} from "./todoCreation.js";
 
 export function loadUI() {
     const main = document.querySelector(".main");
     const todoForm = makeTodoCreationForm();
     const projectForm = makeProjectCreationForm();
-
+    setUpDefaultProjects();
+    
     main.append(todoForm, projectForm);
 }
 

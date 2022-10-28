@@ -35,12 +35,13 @@ function createSidebar() {
 
 function createHomeSection() {
     const home = document.createElement("section");
+    home.classList.add("home");
 
     const heading = document.createElement("h2");
     heading.textContent = "Home";
     const list = document.createElement("ul");
     list.classList.add("list");
-    const allTasks = createSidebarItem("All Tasks");
+    const allTasks = createSidebarItem("Inbox");
     const tasksForToday = createSidebarItem("Today");
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
@@ -76,8 +77,10 @@ function createAddButton(isProjectButton) {
 
 function createSidebarItem(name) {
     const item = document.createElement("li");
-    item.textContent = name;
+    const span = document.createElement("span");
+    span.textContent = name;
 
+    item.appendChild(span);
     return item;
 }
 

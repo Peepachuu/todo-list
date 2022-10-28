@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, projectAlreadyExists} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectAlreadyExists} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 
 export function makeProjectCreationForm() {
@@ -48,13 +48,7 @@ function addProjectToDisplay(projectToDisplay) {
 
     listItem.addEventListener('click', () => {
         displayTodosFromProject(projectToDisplay);
-
-        // Make this project the only active project
-        const projects = document.querySelectorAll(".projects .list span");
-        projects.forEach(element => {
-            element.classList.remove("active");
-        });
-        projectTitle.classList.toggle("active");
+        setProjectAsActive(projectTitle);
     });
     const editButton = document.createElement("button");
     editButton.textContent = "edit";
@@ -67,7 +61,7 @@ function addProjectToDisplay(projectToDisplay) {
     list.appendChild(listItem);
 }
 
-export function displayTodosFromProject(project) {
+function displayTodosFromProject(project) {
     const list = document.querySelector(".main .list");
     list.textContent = "";
     project.todos.forEach(todo => {
@@ -84,6 +78,26 @@ function resetPopUp(popUp) {
     const inputFields = popUp.querySelectorAll("input");
     inputFields.forEach(element => {
         element.value = "";
+    });
+}
+
+function setProjectAsActive(project) {
+    const projects = document.querySelectorAll(".sidebar span");
+    projects.forEach(element => {
+        element.classList.remove("active");
+    });
+    project.classList.toggle("active");
+}
+
+export function setUpDefaultProjects() {
+    const defaultProjects = document.querySelectorAll(".home span");
+    defaultProjects.forEach(element => {
+        const defaultProject = project(element.textContent);
+        defaultProjectsStorage.push(defaultProject);
+        element.addEventListener("click", () => {
+            displayTodosFromProject(defaultProject);
+            setProjectAsActive(element);
+        });
     });
 }
 // Get the form functionality here

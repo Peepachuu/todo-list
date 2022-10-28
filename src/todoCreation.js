@@ -69,6 +69,7 @@ export function addTodoToDisplay(todoToDisplay) {
     todo.classList.add("todo");
 
     const important = document.createElement("input");
+    important.checked = todoToDisplay.isImportant;
     important.setAttribute("type", "checkbox");
     important.addEventListener("change", () => {
         todoToDisplay.isImportant = important.checked;
@@ -88,4 +89,4 @@ function resetPopUp(popUp) {
 }
 // Add more functionality to todo creation.
 // Make it so that the user can add due dates
-// Make it so that the user can choose whether a task is important
+// Make the default projects work i.e. all tasks and important.
