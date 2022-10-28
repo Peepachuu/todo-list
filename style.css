@@ -128,4 +128,13 @@ input {
     display: flex;
     background: var(--secondary-background-color);
     padding: 12px 8px;
+    gap: 8px;
+}
+
+.todo p {
+    flex: 1;
+}
+
+.todo.completed {
+    text-decoration: line-through;
 }
