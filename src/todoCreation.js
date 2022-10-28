@@ -32,7 +32,7 @@ export function makeTodoCreationForm() {
         popUp.classList.toggle("show")
         const newToDo = todo(titleInput.value);
         insertTodoInStorage(newToDo);
-        resetPopUp();
+        resetPopUp(popUp);
         addTodoToDisplay(newToDo);
     });
 
@@ -56,6 +56,9 @@ export function addTodoToDisplay(todoToDisplay) {
 
     const status = document.createElement("input");
     status.setAttribute("type", "checkbox");
+    status.addEventListener("change", () => {
+        todo.classList.toggle("completed");
+    });
     const title = document.createElement("p");
     title.textContent = todoToDisplay.title;
     const detailsButton = document.createElement("button");
@@ -63,9 +66,16 @@ export function addTodoToDisplay(todoToDisplay) {
 
     detailsButton.textContent = "Details";
     deleteButton.textContent = "Del";
-
     todo.classList.add("todo");
-    todo.append(status, title, detailsButton, deleteButton);
+
+    const important = document.createElement("input");
+    important.setAttribute("type", "checkbox");
+    important.addEventListener("change", () => {
+        todoToDisplay.isImportant = important.checked;
+        console.log(important.checked);
+    });
+
+    todo.append(status, title, detailsButton, important, deleteButton);
     const list = document.querySelector(".main .list");
     list.appendChild(todo);
 }
@@ -76,6 +86,6 @@ function resetPopUp(popUp) {
             element.value = "";
         });
 }
-
 // Add more functionality to todo creation.
-// Improve the look of things. 
+// Make it so that the user can add due dates
+// Make it so that the user can choose whether a task is important

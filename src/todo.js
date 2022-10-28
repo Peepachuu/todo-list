@@ -1,9 +1,9 @@
-export const todo = function (title, description="", dueDate="none", priority="low", notes="", checklist="") {
+export const todo = function (title, description="", dueDate="none", isImportant=false, notes="", checklist="") {
     return {
         title,
         description,
         dueDate,
-        priority,
+        isImportant,
         notes,
         checklist
     };
