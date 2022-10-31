@@ -1,4 +1,4 @@
-import {insertTodoInStorage} from "./storage.js";
+import {insertTodoInStorage, deleteTodoFromStorage} from "./storage.js";
 import {todo} from "./todo.js";
 
 export function makeTodoCreationForm() {
@@ -53,6 +53,7 @@ export function makeTodoCreationForm() {
 
 export function addTodoToDisplay(todoToDisplay) {
     const todo = document.createElement("div");
+    const list = document.querySelector(".main .list");
 
     const status = document.createElement("input");
     status.setAttribute("type", "checkbox");
@@ -66,6 +67,11 @@ export function addTodoToDisplay(todoToDisplay) {
 
     detailsButton.textContent = "Details";
     deleteButton.textContent = "Del";
+
+    deleteButton.addEventListener("click", () => {
+        deleteTodoFromStorage(todoToDisplay);
+        list.removeChild(todo);
+    });
     todo.classList.add("todo");
 
     const important = document.createElement("input");
@@ -77,7 +83,7 @@ export function addTodoToDisplay(todoToDisplay) {
     });
 
     todo.append(status, title, detailsButton, important, deleteButton);
-    const list = document.querySelector(".main .list");
+
     list.appendChild(todo);
 }
 
@@ -90,3 +96,6 @@ function resetPopUp(popUp) {
 // Add more functionality to todo creation.
 // Make it so that the user can add due dates
 // Make the default projects work i.e. all tasks and important.
+// Make it so that the user can delete todos.
+// Make it so that the user can edit todos.
+// Add functionality for editing project name. 

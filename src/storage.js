@@ -5,23 +5,16 @@ export function projectAlreadyExists(name) {
     return projectsStorage.some(project => project.title == name);
 }
 
+
 export function insertTodoInStorage(todoToInsert) {
-    insertToDefaultProjects(todoToInsert);
     const projectToInsertInto = document.querySelector(".projects .list .active");
     const position = projectsStorage.findIndex(project => project.title == projectToInsertInto.textContent);
     
     projectsStorage[position].todos.push(todoToInsert);
+    todoToInsert.parentProject = projectsStorage[position];
 }
 
-function insertToDefaultProjects(todoToInsert) {
-    for (const project of defaultProjectsStorage) {
-        if (project.title == "Important") {
-            if (todoToInsert.isImportant)
-                project.todos.push(todoToInsert);
-        } else if (project.title == "Today") {
-            // Do stuff
-        } else if (project.title == "This Week") {
-            // Do stuff
-        }
-    }
+export function deleteTodoFromStorage(todoToDelete) {
+    const position = projectsStorage.findIndex(project => project == todoToDelete.parentProject);
+    projectsStorage[position].todos.splice(projectsStorage[position].todos.findIndex(todo => todo == todoToDelete), 1);
 }
