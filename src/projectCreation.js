@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectAlreadyExists} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 
 export function makeProjectCreationForm() {
@@ -95,10 +95,18 @@ export function setUpDefaultProjects() {
         const defaultProject = project(element.textContent);
         defaultProjectsStorage.push(defaultProject);
         element.addEventListener("click", () => {
-            displayTodosFromProject(defaultProject);
             setProjectAsActive(element);
+            showTodosForDefaultProject(findImportantTodos());
         });
     });
+}
+
+function showTodosForDefaultProject(todosToShow) {
+    const list = document.querySelector(".main .list");
+    list.textContent = "";
+    todosToShow.forEach(element => {
+        addTodoToDisplay(element);
+    })
 }
 // Get the form functionality here
 // Creating a form adds it to the storage
