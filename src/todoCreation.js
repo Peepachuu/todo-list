@@ -5,23 +5,9 @@ export function makeTodoCreationForm() {
     const popUp = document.createElement("div");
     popUp.classList.add("pop-up", "todo");
 
-    const titleContainer = document.createElement("div");
-    const titleInput = document.createElement("input");
-    const titleLabel = document.createElement("label");
-    titleLabel.textContent = "Title";
-    titleInput.id = "title";
-    titleInput.setAttribute("name", "title");
-    titleLabel.setAttribute("for", titleInput.id);
-    titleContainer.append(titleLabel, titleInput);
-
-    const descriptionContainer = document.createElement("div");
-    const descriptionInput = document.createElement("input");
-    const descriptionLabel = document.createElement("label");
-    descriptionLabel.textContent = "Description";
-    descriptionInput.id = "description";
-    descriptionLabel.setAttribute("for", descriptionInput.id);
-    descriptionInput.setAttribute("name", "description");
-    descriptionContainer.append(descriptionLabel, descriptionInput);
+    const titleContainer = createInputField("text", "Title");
+    const descriptionContainer = createInputField("text", "Description");
+    const datePickerContainer = createInputField("date", "Date");
 
     const createButton = document.createElement("button");
     const cancelButton = document.createElement("button");
@@ -30,7 +16,7 @@ export function makeTodoCreationForm() {
     createButton.classList.add("create");
     createButton.addEventListener('click', () => {
         popUp.classList.toggle("show")
-        const newToDo = todo(titleInput.value);
+        const newToDo = todo(titleContainer.querySelector("input").value);
         insertTodoInStorage(newToDo);
         resetPopUp(popUp);
         addTodoToDisplay(newToDo);
@@ -47,7 +33,7 @@ export function makeTodoCreationForm() {
     buttonContainer.classList.add("buttons");
     buttonContainer.append(createButton, cancelButton);
 
-    popUp.append(titleContainer, descriptionContainer, buttonContainer);
+    popUp.append(titleContainer, descriptionContainer, datePickerContainer, buttonContainer);
     return popUp;
 }
 
@@ -92,6 +78,20 @@ function resetPopUp(popUp) {
         inputFields.forEach(element => {
             element.value = "";
         });
+}
+
+function createInputField(type, name) {
+    const inputContainer = document.createElement("div");
+    const input = document.createElement("input");
+    const label = document.createElement("label");
+    label.textContent = name;
+    input.id = name;
+    input.setAttribute("type", type);
+    input.setAttribute("name", name);
+    label.setAttribute("for", input.id);
+    inputContainer.append(label, input);
+
+    return inputContainer;
 }
 // Add more functionality to todo creation.
 // Make it so that the user can add due dates
