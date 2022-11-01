@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos, findTodosForToday} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 
 export function makeProjectCreationForm() {
@@ -96,7 +96,10 @@ export function setUpDefaultProjects() {
         defaultProjectsStorage.push(defaultProject);
         element.addEventListener("click", () => {
             setProjectAsActive(element);
-            showTodosForDefaultProject(findImportantTodos());
+            if (element.textContent == "Important")
+                showTodosForDefaultProject(findImportantTodos());
+            else if (element.textContent == "Today")
+                showTodosForDefaultProject(findTodosForToday());
         });
     });
 }

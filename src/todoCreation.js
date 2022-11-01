@@ -16,7 +16,10 @@ export function makeTodoCreationForm() {
     createButton.classList.add("create");
     createButton.addEventListener('click', () => {
         popUp.classList.toggle("show")
-        const newToDo = todo(titleContainer.querySelector("input").value);
+        const newToDo = todo(titleContainer.querySelector("input").value, 
+            descriptionContainer.querySelector("input").value, 
+            datePickerContainer.querySelector("input").value);
+        console.log(newToDo.dueDate);
         insertTodoInStorage(newToDo);
         resetPopUp(popUp);
         addTodoToDisplay(newToDo);
@@ -98,4 +101,4 @@ function createInputField(type, name) {
 // Make the default projects work i.e. all tasks and important.
 // Make it so that the user can delete todos.
 // Make it so that the user can edit todos.
-// Add functionality for editing project name. 
+// Add functionality for editing project name.

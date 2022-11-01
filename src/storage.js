@@ -1,3 +1,5 @@
+import { isToday, isThisWeek } from "date-fns";
+
 export let projectsStorage = [];
 export let defaultProjectsStorage = [];
 
@@ -26,5 +28,29 @@ export function findImportantTodos() {
                 tasks.push(todo);
         });
     });
+    return tasks;
+}
+
+export function findTodosForToday() {
+    let tasks = [];
+    projectsStorage.forEach(project => {
+        project.todos.forEach(todo => {
+            let format = todo.dueDate.split("-");
+            format = format.map(x => Number(x));
+            console.log(format, isToday(new Date(2022, 10, 1)));
+            if (isToday(new Date(format[0], format[1] - 1, format[2])))
+                tasks.push(todo);
+        })
+    })
+    return tasks;
+}
+
+function findTodoForThisWeek() {
+    let tasks = [];
+    projectsStorage.forEach(project => {
+        project.todos.forEach(todo => {
+            // if (todo.dueDate)
+        })
+    })
     return tasks;
 }
