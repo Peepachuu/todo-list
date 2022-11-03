@@ -7,7 +7,8 @@
 :root {
     --main-background-color: #192734;
     --secondary-background-color: rgb(21, 32, 43);
-    --main-accent-color: rgb(31, 141, 77);
+    --main-accent-color: #2abd67;
+    --darker-main-accent-color: #1f8d4d;
     --main-text-color: white;
     --secondary-accent-color: rgb(190, 4, 4);
 }
@@ -48,14 +49,24 @@ header h1 {
     color: var(--main-text-color);
 }
 
+.sidebar h2 {
+    padding: 4px 0px;
+    border-bottom: 2px solid var(--main-text-color);
+}
+
 .sidebar ul {
     list-style-type: none;
-    padding: 0px 8px;
 }
 
 .sidebar li {
     font-size: 1.5rem;
+    padding: 4px 8px;
     font-weight: 400;
+    border-radius: 4px;
+}
+
+.sidebar li:hover {
+    background-color: var(--main-background-color);
 }
 
 .main {
@@ -75,7 +86,7 @@ header h1 {
     text-align: center;
 }
 
-.active {
+.sidebar .list li.active {
     background-color: white;
 }
 
