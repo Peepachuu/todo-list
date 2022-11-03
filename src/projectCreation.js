@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos, findTodosForToday} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos, findTodosForToday, findTodoForThisWeek} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 
 export function makeProjectCreationForm() {
@@ -41,29 +41,32 @@ export function makeProjectCreationForm() {
 }
 
 function addProjectToDisplay(projectToDisplay) {
-    const listItem = document.createElement("li");
+    const projectItem = document.createElement("li");
     
     const projectTitle = document.createElement("span");
     projectTitle.textContent = projectToDisplay.title;
 
-    listItem.addEventListener('click', () => {
+    projectItem.addEventListener('click', () => {
         displayTodosFromProject(projectToDisplay);
-        setProjectAsActive(projectTitle);
+        setProjectAsActive(projectItem);
     });
     const editButton = document.createElement("button");
     editButton.textContent = "edit";
     editButton.addEventListener("click", () => {
         createEditForm();
     });
-    listItem.append(projectTitle, editButton);
+    projectItem.append(projectTitle, editButton);
     
     const list = document.querySelector(".sidebar .projects .list");
-    list.appendChild(listItem);
+    list.appendChild(projectItem);
 }
 
 function displayTodosFromProject(project) {
     const list = document.querySelector(".main .list");
     list.textContent = "";
+    const heading = document.createElement("h2");
+    heading.textContent = project.title;
+    list.appendChild(heading);
     project.todos.forEach(todo => {
         addTodoToDisplay(todo);
     });
@@ -82,7 +85,7 @@ function resetPopUp(popUp) {
 }
 
 function setProjectAsActive(project) {
-    const projects = document.querySelectorAll(".sidebar span");
+    const projects = document.querySelectorAll(".sidebar .list li");
     projects.forEach(element => {
         element.classList.remove("active");
     });
@@ -90,7 +93,7 @@ function setProjectAsActive(project) {
 }
 
 export function setUpDefaultProjects() {
-    const defaultProjects = document.querySelectorAll(".home span");
+    const defaultProjects = document.querySelectorAll(".home li");
     defaultProjects.forEach(element => {
         const defaultProject = project(element.textContent);
         defaultProjectsStorage.push(defaultProject);
@@ -100,6 +103,8 @@ export function setUpDefaultProjects() {
                 showTodosForDefaultProject(findImportantTodos());
             else if (element.textContent == "Today")
                 showTodosForDefaultProject(findTodosForToday());
+            else if (element.textContent == "This Week")
+                showTodosForDefaultProject(findTodoForThisWeek());
         });
     });
 }
@@ -111,7 +116,29 @@ function showTodosForDefaultProject(todosToShow) {
         addTodoToDisplay(element);
     })
 }
-// Get the form functionality here
-// Creating a form adds it to the storage
-// Make a way to associate the project in the UI to the project in the storage
-// This will help in adding todos to respective projects. 
+
+export function createProjectAddButton() {
+    const addButton = document.createElement("button");
+    addButton.textContent = "Create Project";
+    addButton.classList.add("add");
+    addButton.addEventListener("click", () => {
+        togglePopUp(true);
+    });
+    return addButton;
+}
+
+export function createTodoAddButton() {
+    const addButton = document.createElement("button");
+    addButton.textContent = "Create ToDo";
+    addButton.classList.add("add");
+    addButton.addEventListener("click", () => {
+        togglePopUp(false);
+    });
+    return addButton;
+}
+
+function togglePopUp(isProjectButton) {
+    const selector = isProjectButton ? ".pop-up.project" : ".pop-up.todo";
+    const form = document.querySelector(selector);
+    form.classList.toggle("show");
+}

@@ -1,4 +1,5 @@
-import {loadUI, togglePopUp} from "./ui.js";
+import {loadUI} from "./ui.js";
+import {createProjectAddButton, createTodoAddButton} from "./projectCreation.js";
 
 function loadPage() {
     const header = createHeader();
@@ -59,20 +60,10 @@ function createProjectSection() {
     heading.textContent = "Projects";
     const list = document.createElement("ul");
     list.classList.add("list");
-    const todoAddButton = createAddButton(false);
-    const projectAddButton = createAddButton(true);
-    projects.append(heading, list, todoAddButton, projectAddButton);
+    const projectAddButton = createProjectAddButton();
+    const todoAddButton = createTodoAddButton();
+    projects.append(heading, list, projectAddButton, todoAddButton);
     return projects;
-}
-
-function createAddButton(isProjectButton) {
-    const addButton = document.createElement("button");
-    addButton.textContent = isProjectButton ? "Create Project" : "Create ToDo";
-    addButton.classList.add("add");
-    addButton.addEventListener("click", () => {
-        togglePopUp(isProjectButton);
-    });
-    return addButton;
 }
 
 function createSidebarItem(name) {

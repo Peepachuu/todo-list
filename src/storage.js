@@ -9,7 +9,8 @@ export function projectAlreadyExists(name) {
 
 export function insertTodoInStorage(todoToInsert) {
     const projectToInsertInto = document.querySelector(".projects .list .active");
-    const position = projectsStorage.findIndex(project => project.title == projectToInsertInto.textContent);
+    const projectTitle = projectToInsertInto.querySelector("span").textContent;
+    const position = projectsStorage.findIndex(project => project.title == projectTitle);
     
     projectsStorage[position].todos.push(todoToInsert);
     todoToInsert.parentProject = projectsStorage[position];
@@ -45,11 +46,14 @@ export function findTodosForToday() {
     return tasks;
 }
 
-function findTodoForThisWeek() {
+export function findTodoForThisWeek() {
     let tasks = [];
     projectsStorage.forEach(project => {
         project.todos.forEach(todo => {
-            // if (todo.dueDate)
+            let format = todo.dueDate.split("-");
+            format = format.map(x => Number(x));
+            if (isThisWeek(new Date(format[0], format[1] - 1, format[2])))
+                tasks.push(todo);
         })
     })
     return tasks;
