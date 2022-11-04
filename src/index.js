@@ -1,5 +1,5 @@
 import {loadUI} from "./ui.js";
-import {createProjectAddButton, createTodoAddButton} from "./projectCreation.js";
+import {createProjectAddButton} from "./projectCreation.js";
 
 function loadPage() {
     const header = createHeader();
@@ -61,8 +61,7 @@ function createProjectSection() {
     const list = document.createElement("ul");
     list.classList.add("list");
     const projectAddButton = createProjectAddButton();
-    const todoAddButton = createTodoAddButton();
-    projects.append(heading, list, projectAddButton, todoAddButton);
+    projects.append(heading, list, projectAddButton);
     return projects;
 }
 

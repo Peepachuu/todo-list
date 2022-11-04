@@ -70,6 +70,8 @@ function displayTodosFromProject(project) {
     project.todos.forEach(todo => {
         addTodoToDisplay(todo);
     });
+    const addButton = createTodoAddButton();
+    list.append(addButton);
 }
 
 function createEditForm() {
@@ -127,7 +129,7 @@ export function createProjectAddButton() {
     return addButton;
 }
 
-export function createTodoAddButton() {
+function createTodoAddButton() {
     const addButton = document.createElement("button");
     addButton.textContent = "Create ToDo";
     addButton.classList.add("add");
