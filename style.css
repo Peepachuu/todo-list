@@ -142,6 +142,18 @@ input {
     gap: 8px;
 }
 
+.main .list button {
+    font-size: 1.3rem;
+    padding: 12px 0px;
+    background: transparent;
+    border: transparent;
+    color: var(--main-text-color);
+}
+
+.main .list button:hover {
+    background-color: var(--secondary-background-color);
+}
+
 .todo p {
     flex: 1;
 }
