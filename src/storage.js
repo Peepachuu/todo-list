@@ -14,11 +14,24 @@ export function insertTodoInStorage(todoToInsert) {
     
     projectsStorage[position].todos.push(todoToInsert);
     todoToInsert.parentProject = projectsStorage[position].title;
+    saveDataInLocalStorage();
+}
+
+export function insertProjectInStorage(projectToInsert) {
+    projectsStorage.push(projectToInsert);
+    saveDataInLocalStorage();
 }
 
 export function deleteTodoFromStorage(todoToDelete) {
     const position = projectsStorage.findIndex(project => project.title == todoToDelete.parentProject);
     projectsStorage[position].todos.splice(projectsStorage[position].todos.findIndex(todo => todo == todoToDelete), 1);
+    saveDataInLocalStorage();
+}
+
+export function deleteProjectFromStorage(projectToDelete) {
+    const position = projectsStorage.findIndex(project => project == projectToDelete);
+    projectsStorage.splice(position, 1);
+    saveDataInLocalStorage();
 }
 
 export function findImportantTodos() {
@@ -61,7 +74,6 @@ export function findTodoForThisWeek() {
 
 function saveDataInLocalStorage() {
     localStorage.setItem("projectsStorage", JSON.stringify(projectsStorage));
-    console.log(localStorage.getItem("projectsStorage"));
 }
 
 function storageAvailable(type) {
@@ -83,9 +95,8 @@ function storageAvailable(type) {
     }
 }
 
-function showStoredData() {
+export function getStoredData() {
     if (!storageAvailable("localStorage"))
         return ;
     projectsStorage = JSON.parse(localStorage.getItem("projectsStorage"));
-    console.log(projectsStorage);
 }

@@ -96,9 +96,3 @@ function createInputField(type, name) {
 
     return inputContainer;
 }
-// Add more functionality to todo creation.
-// Make it so that the user can add due dates
-// Make the default projects work i.e. all tasks and important.
-// Make it so that the user can delete todos.
-// Make it so that the user can edit todos.
-// Add functionality for editing project name.

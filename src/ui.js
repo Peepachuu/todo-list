@@ -1,4 +1,4 @@
-import {makeProjectCreationForm, setUpDefaultProjects} from "./projectCreation.js";
+import {makeProjectCreationForm, setUpDefaultProjects, loadProjectsFromStorage} from "./projectCreation.js";
 import {makeTodoCreationForm} from "./todoCreation.js";
 
 export function loadUI() {
@@ -8,6 +8,7 @@ export function loadUI() {
     const projectForm = makeProjectCreationForm();
     setUpDefaultProjects();
     
+    loadProjectsFromStorage();
     projectsSection.appendChild(projectForm);
     main.appendChild(todoForm);
 }

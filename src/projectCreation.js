@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos, findTodosForToday, findTodoForThisWeek} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 
 export function makeProjectCreationForm() {
@@ -19,8 +19,7 @@ export function makeProjectCreationForm() {
         }
         popUp.classList.toggle("show");
         const newProject = project(titleInput.value);
-        projectsStorage.push(newProject);
-        console.log(projectsStorage);
+        insertProjectInStorage(newProject);
         resetPopUp(popUp);
         addProjectToDisplay(newProject);
     });
@@ -40,7 +39,7 @@ export function makeProjectCreationForm() {
     return popUp;
 }
 
-function addProjectToDisplay(projectToDisplay) {
+export function addProjectToDisplay(projectToDisplay) {
     const projectItem = document.createElement("li");
     
     const projectTitle = document.createElement("span");
@@ -50,12 +49,13 @@ function addProjectToDisplay(projectToDisplay) {
         displayTodosFromProject(projectToDisplay);
         setProjectAsActive(projectItem);
     });
-    const editButton = document.createElement("button");
-    editButton.textContent = "edit";
-    editButton.addEventListener("click", () => {
-        createEditForm();
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "del";
+    deleteButton.addEventListener("click", () => {
+        deleteProjectFromStorage(projectToDisplay);
+        projectItem.remove();
     });
-    projectItem.append(projectTitle, editButton);
+    projectItem.append(projectTitle, deleteButton);
     
     const list = document.querySelector(".sidebar .projects .list");
     list.appendChild(projectItem);
@@ -143,4 +143,11 @@ function togglePopUp(isProjectButton) {
     const selector = isProjectButton ? ".pop-up.project" : ".pop-up.todo";
     const form = document.querySelector(selector);
     form.classList.toggle("show");
+}
+
+export function loadProjectsFromStorage() {
+    getStoredData();
+    projectsStorage.forEach(element => {
+        addProjectToDisplay(element);
+    });
 }
