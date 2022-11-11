@@ -81,10 +81,11 @@ function createMainContent() {
     container.classList.add("list");
     const heading = document.createElement("h2");
     heading.textContent = "Today";
-
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("buttonContainer");
     // Also gotta append the list of todos for the day.
     container.appendChild(heading);
-    main.appendChild(container);
+    main.append(container, buttonContainer);
     main.classList.add("main");
     return main;
 }

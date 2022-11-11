@@ -3,7 +3,7 @@ import { isToday, isThisWeek } from "date-fns";
 export let projectsStorage = [];
 export let defaultProjectsStorage = [];
 
-export function projectAlreadyExists(name) {
+export function projectExists(name) {
     return projectsStorage.some(project => project.title == name);
 }
 
@@ -35,7 +35,6 @@ export function deleteProjectFromStorage(projectToDelete) {
 }
 
 export function findImportantTodos() {
-    showStoredData();
     let tasks = [];
     projectsStorage.forEach(project => {
         project.todos.forEach(todo => {

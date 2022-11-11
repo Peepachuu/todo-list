@@ -7,8 +7,8 @@
 :root {
     --main-background-color: #192734;
     --secondary-background-color: rgb(21, 32, 43);
-    --main-accent-color: #2abd67;
-    --darker-main-accent-color: #1f8d4d;
+    --main-accent-color: rgb(42, 189, 103);
+    --darker-main-accent-color: rgb(31, 141, 77);
     --main-text-color: white;
     --secondary-accent-color: rgb(190, 4, 4);
 }
@@ -69,18 +69,30 @@ header h1 {
     background-color: var(--main-background-color);
 }
 
-.sidebar button {
+.sidebar .pop-up button {
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 8px 0px;
+    color: var(--main-text-color);
+}
+
+.sidebar button {
     border: transparent;
     background: transparent;
     color: var(--main-text-color);
+    font-size: 1rem;
+}
+
+.sidebar .add {
+    width: 100%;
+    padding: 8px 0px;
+    font-size: 1.3rem;
 }
 
 .sidebar .add:hover {
     background-color: var(--main-background-color);
 }
+
 .main {
     flex: 1;
     background-color: var(--main-background-color);
@@ -99,7 +111,7 @@ header h1 {
 }
 
 .sidebar .list li.active {
-    background-color: white;
+    background-color: rgba(42, 189, 103, 0.7);
 }
 
 .pop-up {
@@ -154,15 +166,25 @@ input {
     gap: 8px;
 }
 
-.main .list button {
-    font-size: 1.3rem;
-    padding: 12px 0px;
+.main button {
+    font-size: 1.1rem;
     background: transparent;
     border: transparent;
     color: var(--main-text-color);
 }
 
-.main .list button:hover {
+.buttonContainer {
+    width: 100%;
+}
+
+.buttonContainer button {
+    font-size: 1.3rem;
+    width: 100%;
+    padding: 12px 0px;
+    margin: 12px 0px;
+}
+
+.main .buttonContainer button:hover {
     background-color: var(--secondary-background-color);
 }
 
@@ -177,6 +199,7 @@ input {
 
 .todo p {
     flex: 1;
+    font-size: 1.1rem;
 }
 
 .todo.completed {

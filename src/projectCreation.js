@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectAlreadyExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 
 export function makeProjectCreationForm() {
@@ -13,7 +13,7 @@ export function makeProjectCreationForm() {
     createButton.classList.add("create");
     createButton.textContent = "Create";
     createButton.addEventListener("click", () => {
-        if (projectAlreadyExists(titleInput.value)) {
+        if (projectExists(titleInput.value)) {
             alert("Project Already Exists");
             return ;
         }
@@ -41,11 +41,16 @@ export function makeProjectCreationForm() {
 
 export function addProjectToDisplay(projectToDisplay) {
     const projectItem = document.createElement("li");
-    
+    const list = document.querySelector(".sidebar .projects .list");
+
     const projectTitle = document.createElement("span");
     projectTitle.textContent = projectToDisplay.title;
 
     projectItem.addEventListener('click', () => {
+        if (!projectExists(projectToDisplay.title)) {
+            switchToToday();
+            return ;
+        }
         displayTodosFromProject(projectToDisplay);
         setProjectAsActive(projectItem);
     });
@@ -53,11 +58,10 @@ export function addProjectToDisplay(projectToDisplay) {
     deleteButton.textContent = "del";
     deleteButton.addEventListener("click", () => {
         deleteProjectFromStorage(projectToDisplay);
-        projectItem.remove();
+        list.removeChild(projectItem);
     });
     projectItem.append(projectTitle, deleteButton);
     
-    const list = document.querySelector(".sidebar .projects .list");
     list.appendChild(projectItem);
 }
 
@@ -70,13 +74,10 @@ function displayTodosFromProject(project) {
     project.todos.forEach(todo => {
         addTodoToDisplay(todo);
     });
-    const addButton = createTodoAddButton();
-    list.append(addButton);
-}
+    const buttonContainer = document.querySelector(".buttonContainer");
+    buttonContainer.textContent = "";
+    buttonContainer.appendChild(createTodoAddButton());
 
-function createEditForm() {
-    const editForm = document.createElement("div");
-    const titleInput = document.createElement("input");
 }
 
 function resetPopUp(popUp) {
@@ -151,3 +152,16 @@ export function loadProjectsFromStorage() {
         addProjectToDisplay(element);
     });
 }
+
+function switchToToday() {
+    const event = new Event("click");
+    const defaultProjects = document.querySelectorAll(".sidebar .home .list li");
+    for (const defaultProject of defaultProjects) {
+        if (defaultProject.querySelector("span").textContent == "Today") {
+            defaultProject.dispatchEvent(event);
+        }
+    }
+}
+// Improve the appearance of the buttons
+// Make it so the create todo button shows up after all the todos in that project
+// Improve the look of active projects
