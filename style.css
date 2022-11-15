@@ -205,3 +205,8 @@ input {
 .todo.completed {
     text-decoration: line-through;
 }
+
+.icon {
+    width: 24px;
+    height: auto;
+}
