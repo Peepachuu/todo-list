@@ -42,7 +42,7 @@ function createHomeSection() {
     heading.textContent = "Home";
     const list = document.createElement("ul");
     list.classList.add("list");
-    const allTasks = createSidebarItem("Inbox");
+    const allTasks = createSidebarItem("All Tasks");
     const tasksForToday = createSidebarItem("Today");
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");

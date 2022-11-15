@@ -71,6 +71,14 @@ export function findTodoForThisWeek() {
     return tasks;
 }
 
+export function findAllTodos() {
+    let tasks = [];
+    projectsStorage.forEach(project => {
+        project.todos.forEach(todo => tasks.push(todo));
+    });
+    return tasks;
+}
+
 function saveDataInLocalStorage() {
     localStorage.setItem("projectsStorage", JSON.stringify(projectsStorage));
 }

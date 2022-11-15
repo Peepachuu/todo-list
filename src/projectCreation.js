@@ -1,6 +1,7 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage, findAllTodos} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
+import trashIcon from "./icons/trash-can-outline.svg";
 
 export function makeProjectCreationForm() {
     const popUp = document.createElement("div");
@@ -54,8 +55,9 @@ export function addProjectToDisplay(projectToDisplay) {
         displayTodosFromProject(projectToDisplay);
         setProjectAsActive(projectItem);
     });
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "del";
+    const deleteButton = document.createElement("img");
+    deleteButton.src = trashIcon;
+    deleteButton.classList.add("icon");
     deleteButton.addEventListener("click", () => {
         deleteProjectFromStorage(projectToDisplay);
         list.removeChild(projectItem);
@@ -108,13 +110,17 @@ export function setUpDefaultProjects() {
                 showTodosForDefaultProject(findTodosForToday());
             else if (element.textContent == "This Week")
                 showTodosForDefaultProject(findTodoForThisWeek());
+            else if (element.textContent == "All Tasks")
+                showTodosForDefaultProject(findAllTodos());
         });
     });
 }
 
 function showTodosForDefaultProject(todosToShow) {
     const list = document.querySelector(".main .list");
+    const buttonContainer = document.querySelector(".main .buttonContainer");
     list.textContent = "";
+    buttonContainer.textContent = "";
     todosToShow.forEach(element => {
         addTodoToDisplay(element);
     })
