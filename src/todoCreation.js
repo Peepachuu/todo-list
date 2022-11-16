@@ -56,6 +56,9 @@ export function addTodoToDisplay(todoToDisplay) {
     title.textContent = todoToDisplay.title;
     const detailsButton = document.createElement("button");
     const deleteButton = document.createElement("img");
+    const dueDate = document.createElement("span");
+    dueDate.textContent = todoToDisplay.dueDate;
+
     deleteButton.classList.add("icon");
 
     detailsButton.textContent = "Details";
@@ -79,7 +82,7 @@ export function addTodoToDisplay(todoToDisplay) {
         console.log(important.checked);
     });
 
-    todo.append(status, title, detailsButton, important, deleteButton);
+    todo.append(status, title, dueDate, detailsButton, important, deleteButton);
 
     list.appendChild(todo);
 }
@@ -120,7 +123,7 @@ function showTodoDetails(todoToShow) {
     title.textContent = todoToShow.title;
     parentProject.textContent = "Project: " + todoToShow.parentProject;
     priority.textContent = "Priority: " + (todoToShow.isImportant ? "Important" : "Not Important");
-    dueDate.textContent = "Due Date:" + todoToShow.dueDate;
+    dueDate.textContent = "Due Date: " + todoToShow.dueDate;
     description.textContent = "Description: " + todoToShow.description;
 
     closeButton.addEventListener("click", () => {
@@ -137,7 +140,5 @@ function showTodoDetails(todoToShow) {
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 }
-// Add icons for editing details on a todo and deleting it
-// Add functionality for seeing detalis of a todo
+
 // Make it so that the date can always been seen
-// Add functionality for editing details
