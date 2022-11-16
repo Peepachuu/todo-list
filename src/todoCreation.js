@@ -1,5 +1,8 @@
 import {insertTodoInStorage, deleteTodoFromStorage} from "./storage.js";
 import {todo} from "./todo.js";
+import starIcon from "./icons/star-outline.svg";
+import trashIcon from "./icons/trash-can-outline.svg";
+import editIcon from "./icons/note-edit-outline.svg";
 
 export function makeTodoCreationForm() {
     const popUp = document.createElement("div");
@@ -52,15 +55,20 @@ export function addTodoToDisplay(todoToDisplay) {
     const title = document.createElement("p");
     title.textContent = todoToDisplay.title;
     const detailsButton = document.createElement("button");
-    const deleteButton = document.createElement("button");
+    const deleteButton = document.createElement("img");
+    deleteButton.classList.add("icon");
 
     detailsButton.textContent = "Details";
-    deleteButton.textContent = "Del";
+    deleteButton.src = trashIcon;
 
     deleteButton.addEventListener("click", () => {
         deleteTodoFromStorage(todoToDisplay);
         list.removeChild(todo);
     });
+    detailsButton.addEventListener("click", () => {
+        showTodoDetails(todoToDisplay);
+    });
+
     todo.classList.add("todo");
 
     const important = document.createElement("input");
@@ -96,3 +104,40 @@ function createInputField(type, name) {
 
     return inputContainer;
 }
+
+function showTodoDetails(todoToShow) {
+    const overlay = document.createElement("div");
+    overlay.classList.add("overlay");
+
+    const title = document.createElement("h3");
+    const parentProject = document.createElement("p");
+    const priority = document.createElement("p");
+    const dueDate = document.createElement("p");
+    const description = document.createElement("p");
+    const closeButton = document.createElement("button");
+
+    closeButton.textContent = "x";
+    title.textContent = todoToShow.title;
+    parentProject.textContent = "Project: " + todoToShow.parentProject;
+    priority.textContent = "Priority: " + (todoToShow.isImportant ? "Important" : "Not Important");
+    dueDate.textContent = "Due Date:" + todoToShow.dueDate;
+    description.textContent = "Description: " + todoToShow.description;
+
+    closeButton.addEventListener("click", () => {
+        document.body.removeChild(overlay);
+    })
+
+    const container = document.createElement("div");
+    const topContainer = document.createElement("div");
+    container.classList.add("container");
+    topContainer.classList.add("top");
+
+    topContainer.append(title, closeButton);
+    container.append(topContainer, parentProject, priority, dueDate, description);
+    overlay.appendChild(container);
+    document.body.appendChild(overlay);
+}
+// Add icons for editing details on a todo and deleting it
+// Add functionality for seeing detalis of a todo
+// Make it so that the date can always been seen
+// Add functionality for editing details

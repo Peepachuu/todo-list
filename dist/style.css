@@ -210,3 +210,32 @@ input {
     width: 24px;
     height: auto;
 }
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.overlay .container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-background-color);
+    font-size: 2rem;
+    color: var(--main-text-color);
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 12px 20px;
+    min-width: 50vw;
+}
+
+.overlay .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
