@@ -105,5 +105,5 @@ function storageAvailable(type) {
 export function getStoredData() {
     if (!storageAvailable("localStorage"))
         return ;
-    projectsStorage = JSON.parse(localStorage.getItem("projectsStorage"));
+    projectsStorage = JSON.parse(localStorage.getItem("projectsStorage")) || [];
 }
