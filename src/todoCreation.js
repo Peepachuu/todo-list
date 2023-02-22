@@ -1,8 +1,6 @@
-import {insertTodoInStorage, deleteTodoFromStorage} from "./storage.js";
+import {insertTodoInStorage, deleteTodoFromStorage, saveDataInLocalStorage} from "./storage.js";
 import {todo} from "./todo.js";
-import starIcon from "./icons/star-outline.svg";
 import trashIcon from "./icons/trash-can-outline.svg";
-import editIcon from "./icons/note-edit-outline.svg";
 
 export function makeTodoCreationForm() {
     const popUp = document.createElement("div");
@@ -22,7 +20,6 @@ export function makeTodoCreationForm() {
         const newToDo = todo(titleContainer.querySelector("input").value, 
             descriptionContainer.querySelector("input").value, 
             datePickerContainer.querySelector("input").value);
-        console.log(newToDo.dueDate);
         insertTodoInStorage(newToDo);
         resetPopUp(popUp);
         addTodoToDisplay(newToDo);
@@ -49,9 +46,13 @@ export function addTodoToDisplay(todoToDisplay) {
 
     const status = document.createElement("input");
     status.setAttribute("type", "checkbox");
+    status.checked = todoToDisplay.isCompleted;
     status.addEventListener("change", () => {
-        todo.classList.toggle("completed");
+        todoToDisplay.isCompleted = status.checked;
+        saveDataInLocalStorage();
+        list.removeChild(todo);
     });
+    
     const title = document.createElement("p");
     title.textContent = todoToDisplay.title;
     const detailsButton = document.createElement("button");
@@ -72,14 +73,15 @@ export function addTodoToDisplay(todoToDisplay) {
         showTodoDetails(todoToDisplay);
     });
 
-    todo.classList.add("todo");
+    todo.classList.add("todo", "item");
 
     const important = document.createElement("input");
-    important.checked = todoToDisplay.isImportant;
+    important.classList.add("star");
     important.setAttribute("type", "checkbox");
+    important.checked = todoToDisplay.isImportant;
     important.addEventListener("change", () => {
         todoToDisplay.isImportant = important.checked;
-        console.log(important.checked);
+        saveDataInLocalStorage();
     });
 
     todo.append(status, title, dueDate, detailsButton, important, deleteButton);

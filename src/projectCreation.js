@@ -1,5 +1,5 @@
 import {project} from "./project.js";
-import {projectsStorage, defaultProjectsStorage, projectExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage, findAllTodos} from "./storage.js";
+import {projectsStorage, defaultProjectsStorage, projectExists, findImportantTodos, findTodosForToday, findTodoForThisWeek, insertProjectInStorage, getStoredData, deleteProjectFromStorage, findAllTodos, findCompletedTodos} from "./storage.js";
 import { addTodoToDisplay } from "./todoCreation.js";
 import trashIcon from "./icons/trash-can-outline.svg";
 
@@ -74,6 +74,8 @@ function displayTodosFromProject(project) {
     heading.textContent = project.title;
     list.appendChild(heading);
     project.todos.forEach(todo => {
+        if (todo.isCompleted)
+            return ;
         addTodoToDisplay(todo);
     });
     const buttonContainer = document.querySelector(".buttonContainer");
@@ -112,6 +114,8 @@ export function setUpDefaultProjects() {
                 showTodosForDefaultProject(findTodoForThisWeek());
             else if (element.textContent == "All Tasks")
                 showTodosForDefaultProject(findAllTodos());
+            else if (element.textContent == "Completed Tasks")
+                showTodosForDefaultProject(findCompletedTodos());
         });
     });
 }

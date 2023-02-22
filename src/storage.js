@@ -38,7 +38,7 @@ export function findImportantTodos() {
     let tasks = [];
     projectsStorage.forEach(project => {
         project.todos.forEach(todo => {
-            if (todo.isImportant)
+            if (todo.isImportant && !todo.isCompleted)
                 tasks.push(todo);
         });
     });
@@ -51,7 +51,7 @@ export function findTodosForToday() {
         project.todos.forEach(todo => {
             let format = todo.dueDate.split("-");
             format = format.map(x => Number(x));
-            if (isToday(new Date(format[0], format[1] - 1, format[2])))
+            if (isToday(new Date(format[0], format[1] - 1, format[2])) && !todo.isCompleted)
                 tasks.push(todo);
         })
     })
@@ -64,7 +64,18 @@ export function findTodoForThisWeek() {
         project.todos.forEach(todo => {
             let format = todo.dueDate.split("-");
             format = format.map(x => Number(x));
-            if (isThisWeek(new Date(format[0], format[1] - 1, format[2])))
+            if (isThisWeek(new Date(format[0], format[1] - 1, format[2])) && !todo.isCompleted)
+                tasks.push(todo);
+        })
+    })
+    return tasks;
+}
+
+export function findCompletedTodos() {
+    let tasks = [];
+    projectsStorage.forEach(project => {
+        project.todos.forEach(todo => {
+            if (todo.isCompleted)
                 tasks.push(todo);
         })
     })
@@ -74,12 +85,15 @@ export function findTodoForThisWeek() {
 export function findAllTodos() {
     let tasks = [];
     projectsStorage.forEach(project => {
-        project.todos.forEach(todo => tasks.push(todo));
+        project.todos.forEach(todo => {
+            if (!todo.isCompleted)
+                tasks.push(todo);
+        });
     });
     return tasks;
 }
 
-function saveDataInLocalStorage() {
+export function saveDataInLocalStorage() {
     localStorage.setItem("projectsStorage", JSON.stringify(projectsStorage));
 }
 

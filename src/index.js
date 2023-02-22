@@ -46,8 +46,9 @@ function createHomeSection() {
     const tasksForToday = createSidebarItem("Today");
     const tasksForWeek = createSidebarItem("This Week");
     const importantTasks = createSidebarItem("Important");
+    const completedTasks = createSidebarItem("Completed Tasks");
 
-    list.append(allTasks, tasksForToday, tasksForWeek, importantTasks);
+    list.append(allTasks, tasksForToday, tasksForWeek, importantTasks, completedTasks);
     home.append(heading, list);
     return home;
 }

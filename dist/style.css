@@ -15,8 +15,7 @@
 
 body {
     min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .content {
@@ -60,7 +59,7 @@ header h1 {
 
 .sidebar li {
     font-size: 1.5rem;
-    padding: 4px 8px;
+    padding: 8px 8px;
     font-weight: 400;
     border-radius: 4px;
 }
@@ -151,6 +150,10 @@ input {
     border-radius: 3px;
 }
 
+.pop-up button:hover {
+    opacity: 0.85;
+}
+
 .pop-up .create {
     background-color: var(--main-accent-color);
 }
@@ -159,11 +162,12 @@ input {
     background-color: var(--secondary-accent-color);
 }
 
-.todo {
+.todo.item {
     display: flex;
     background: var(--secondary-background-color);
     padding: 12px 8px;
     gap: 8px;
+    align-items: center;
 }
 
 .main button {
@@ -202,13 +206,12 @@ input {
     font-size: 1.1rem;
 }
 
-.todo.completed {
-    text-decoration: line-through;
-}
-
 .icon {
     width: 24px;
-    height: auto;
+}
+
+.icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .overlay {
@@ -244,4 +247,9 @@ input {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+button {
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
