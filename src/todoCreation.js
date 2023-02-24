@@ -76,10 +76,11 @@ export function addTodoToDisplay(todoToDisplay) {
     todo.classList.add("todo", "item");
 
     const important = document.createElement("input");
-    important.classList.add("star");
+    important.classList.add("star", "icon");
     important.setAttribute("type", "checkbox");
     important.checked = todoToDisplay.isImportant;
     important.addEventListener("change", () => {
+        important.classList.toggle("activated");
         todoToDisplay.isImportant = important.checked;
         saveDataInLocalStorage();
     });
