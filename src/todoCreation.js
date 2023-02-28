@@ -79,6 +79,8 @@ export function addTodoToDisplay(todoToDisplay) {
     important.classList.add("star", "icon");
     important.setAttribute("type", "checkbox");
     important.checked = todoToDisplay.isImportant;
+    if (important.checked)
+        important.classList.toggle("activated");
     important.addEventListener("change", () => {
         important.classList.toggle("activated");
         todoToDisplay.isImportant = important.checked;
